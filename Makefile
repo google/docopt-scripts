@@ -58,6 +58,23 @@ print-install-success:
 pass-checks: check-goenv
 
 check-goenv:
+	@goexec=$$(which go 2>/dev/null); \
+	errstr="This tool is written in Go.\n"; \
+	errstr="$${errstr}Please install Go in order to proceed.\n"; \
+	errstr="$${errstr}https://golang.org/doc/install\n"; \
+	if [ "$${goexec}" = "" ]; then \
+		echo -ne $${errstr}; \
+		exit 1; \
+	fi;
+	@eval $(go env); \
+	errstr="This tool is written in Go.\n"; \
+	errstr="$${errstr}It relies on third party tools installed into an environment variable, called GOPATH.\n"; \
+	errstr="$${errstr}You must have GOPATH set in order to proceed.\n"; \
+	errstr="$${errstr}Please see https://github.com/golang/go/wiki/GOPATH for reference.\n"; \
+	if [ "$${GOPATH}" = "" ]; then \
+		echo -ne $${errstr}; \
+		exit 1; \
+	fi;
 	@eval $(go env); \
 	errstr="You must build natively, i.e. GOOS == GOHOSTOS and GOARCH == GOHOSTARCH"; \
 	if [ "$${GOOS}" = "" ] && [ "$${GOARCH}" = "" ]; then \
