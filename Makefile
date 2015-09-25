@@ -40,7 +40,7 @@ print-install-success:
 	@echo ""
 	@echo "        export PATH=\"$(BINDIR):\$$PATH\""
 	@echo ""
-	@echo "    To enable bash completion, copy the 'src/bash_autocomplete' file"
+	@echo "    To enable bash completion, copy the 'bin/bash_autocomplete' file"
 	@echo "    into '/etc/bash_completion.d', renaming it to '$(EXEC)' and sourcing"
 	@echo "    it as follows:"
 	@echo ""

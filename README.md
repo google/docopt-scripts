@@ -37,6 +37,22 @@ repo.
 Installation
 ------------
 
+This installation requires Go. As part of this, Go requires you to set the
+value of the GOPATH environment variable in order to download and install third
+party packages during go compilation. Your GOPATH should remain set so that
+installed scripts can make use of Go as well. Please add the following to your
+.bashrc file (or equivalent).
+
+```
+export GOPATH=<path_to_third_party_go_stuff>
+export PATH=${GOPATH//://bin:}/bin:$PATH
+```
+
+For reference:
+<https://github.com/golang/go/wiki/GOPATH>
+
+After that, just...
+
 1. Clone the repo
 2. Run `make EXEC=<exec> install`
 3. Follow the onscreen instructions
