@@ -117,6 +117,7 @@ func addOneScript(app *cli.App, dir, script string) cli.Command {
 			} else {
 				err = RunScriptMain(abspath, args)
 				if err != nil {
+					fmt.Printf("\n")
 					cli.ShowCommandHelp(c, name)
 				}
 			}
