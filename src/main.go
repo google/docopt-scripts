@@ -93,10 +93,6 @@ func addOneScript(app *cli.App, dir, script string) cli.Command {
 		Description: desc,
 		Usage: usage,
 		Action: func(c *cli.Context) {
-			if InterceptHelp() {
-				cli.ShowCommandHelp(c, name)
-				return
-			}
 			if InterceptBashAutocomplete() {
 				args, _ := parseArgs(usage, name, os.Args[3:])
 				for k := range args {
@@ -104,6 +100,10 @@ func addOneScript(app *cli.App, dir, script string) cli.Command {
 						fmt.Println(k)
 					}
 				}
+				return
+			}
+			if InterceptHelp() {
+				cli.ShowCommandHelp(c, name)
 				return
 			}
 			args, err := parseArgs(usage, name, os.Args[3:])
