@@ -189,6 +189,9 @@ func TranslateCmdArgsForBash(args map[string]interface{}) string {
 		k = strings.Replace(strings.TrimPrefix(k, "--"), "-", "_", -1)
 		k = strings.Replace(k, "<", "", -1)
 		k = strings.Replace(k, ">", "", -1)
+		if v == nil {
+			v = ""
+		}
 		str += fmt.Sprintf("local %v=%v;", k, v)
 	}
 	return str
