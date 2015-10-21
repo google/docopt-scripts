@@ -60,6 +60,19 @@ check_execs() {
 	check_cond "${cond}" "${errstr}" ${@}
 }
 
+script_path() {
+	local cmd="${1}"
+	local script="${2}"
+	local paths=$(echo ${SCRIPTS_PATH} | sed -e 's/:/ /g')
+	for p in ${paths}; do
+		local fullpath="${p}/${cmd}-${script}.sh"
+		if [ -f "${fullpath}" ]; then
+			echo ${fullpath}
+			break
+		fi
+	done
+}
+
 #function build_cmd_line_vars() {
 #	echo "for i in \"\${@}\"; do"
 #	echo "case \$i in"
