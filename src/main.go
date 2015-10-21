@@ -73,7 +73,8 @@ func getSortedScriptPaths(dirs []string) (Scripts) {
 		files, _ := ioutil.ReadDir(d)
 		for _, f := range files {
 			s := filepath.Base(f.Name())
-			if s[:len(APP_NAME) + 1] == APP_NAME + "-" {
+			if s[:len(APP_NAME) + 1] == APP_NAME + "-" &&
+			   s[len(s) - 3:] == ".sh" {
 				scripts = append(scripts, Script{s, d})
 			}
 		}
