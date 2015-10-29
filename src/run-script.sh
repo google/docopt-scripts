@@ -15,22 +15,24 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-SCRIPTS_ROOT=$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")" && pwd)
 if [ "${#}" -lt 2 ]; then
 	echo "Usage: $(basename ${0}) <script> {usage|description|run} args..."
 	exit 1
 fi
-SCRIPTS_PATH=${SCRIPTS_ROOT}/scripts
 
 function main() {
 	local cmd=$(basename ${1})
 	local prefix=${cmd/-*/}
+	local ucprefix=$(echo ${prefix} | tr '[a-z]' '[A-Z]')
+	local scripts_root=$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")" && pwd)
+	eval $(echo "export ${ucprefix}_SCRIPTS_PATH=\"\${${ucprefix}_SCRIPTS_PATH}:\${scripts_root}/scripts\"")
+
 	if [ -f ${HOME}/.${prefix}config ]; then
 		source ${HOME}/.${prefix}config
 	fi
-	unset cmd prefix
+	unset cmd ucprefix prefix
 
-	source ${SCRIPTS_ROOT}/funcs.sh
+	source ${scripts_root}/funcs.sh
 	source ${1}
 
 	case "${2}" in

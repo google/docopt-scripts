@@ -62,8 +62,9 @@ check_execs() {
 
 script_path() {
 	local cmd="${1}"
+	local uccmd="$(echo ${cmd} | tr '[a-z]' '[A-Z]')"
 	local script="${2}"
-	local paths=$(echo ${SCRIPTS_PATH} | sed -e 's/:/ /g')
+	local paths=$(eval "echo \"\${${uccmd}_SCRIPTS_PATH}\" | sed -e 's/:/ /g'")
 	for p in ${paths}; do
 		local fullpath="${p}/${cmd}-${script}.sh"
 		if [ -f "${fullpath}" ]; then

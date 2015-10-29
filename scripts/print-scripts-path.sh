@@ -20,10 +20,12 @@ function short_description() {
 }
 
 function usage() {
-	: local ${cmd:=$(basename ${BASH_SOURCE})}
 	echo "Usage: ${cmd}"
 }
 
 function main() {
-	echo ${SCRIPTS_PATH}
+	local prefix="$(basename "$(readlink -f "${BASH_SOURCE[0]}")")"
+	prefix=${prefix/-*/}
+	prefix=$(echo ${prefix} | tr '[a-z]' '[A-Z]')
+	eval "echo \"\${${prefix}_SCRIPTS_PATH}\""
 }

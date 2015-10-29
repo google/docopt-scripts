@@ -14,15 +14,15 @@ can be invoked as follows:
 `$ ak launch-qemu`
 
 Individual scripts can be spread across the file system and the tool will
-coalesce them based on the value of a `$SCRIPTS_PATH` environment variable.
-This environment variable (as well as any others) can be set in a special
-`.<exec>config` file in the users home directory (e.g. `~/.akconfig`).
-Putting variables in this file (as opposed to your standard `~/.bashrc` keeps
-them from being set on a system wide basis and only available during the
-running of this tool.
+coalesce them based on the value of an `$<EXEC>_SCRIPTS_PATH` environment
+variable (e.g. `$AK_SCRIPTS_PATH`).  This environment variable (as well as any
+others) can be set in a special `.<exec>config` file in the users home
+directory (e.g. `~/.akconfig`).  Putting variables in this file (as opposed to
+your standard `~/.bashrc` keeps them from being set on a system wide basis and
+only available during the running of this tool.
 
 Scripts are written with the following naming convention so that they can sit
-along other files in the `$SCRIPTS_PATH`:
+along other files in the `$<exec>_SCRIPTS_PATH`:
 
 `<exec>-<script_name>.sh`
 

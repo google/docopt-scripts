@@ -19,6 +19,7 @@ THIRDPARTYCLIDIR=$(PWD)/third_party/github.com/codegangsta/cli
 BINDIR=$(PWD)/bin
 SRCS=main.go util.go
 EXEC?=ak
+SCRIPTS_PATH=$(shell echo $(EXEC)| tr '[a-z]' '[A-Z]')_SCRIPTS_PATH
 
 MAKEFLAGS += -rR --no-print-directory
 
@@ -51,7 +52,7 @@ print-install-success:
 	@echo "    directory with any bash configuration you want to make available"
 	@echo "    to '$(EXEC)' while executing. This includes environment variables,"
 	@echo "    helper functions, etc. For example, you can update the value of"
-	@echo "    \$$SCRIPTS_PATH in this file to update the list of directories"
+	@echo "    \$$$(SCRIPTS_PATH) in this file to update the list of directories"
 	@echo "    where your '$(EXEC)' specific 'docopt-scripts' are located. You"
 	@echo "    can append to it as desired. See the README for more info."
 
