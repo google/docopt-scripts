@@ -67,6 +67,15 @@ func addScripts(app *cli.App) []cli.Command {
 	return cmds
 }
 
+func contains(scripts []Script, name string) bool {
+	for _, s := range scripts {
+		if strings.Compare(s.Name, name) == 0 {
+			return true;
+		}
+	}
+	return false
+}
+
 func getSortedScriptPaths(dirs []string) (Scripts) {
 	scripts := Scripts{}
 	for _, d := range dirs {
@@ -74,7 +83,8 @@ func getSortedScriptPaths(dirs []string) (Scripts) {
 		for _, f := range files {
 			s := filepath.Base(f.Name())
 			if s[:len(APP_NAME) + 1] == APP_NAME + "-" &&
-			   s[len(s) - 3:] == ".sh" {
+			   s[len(s) - 3:] == ".sh" &&
+			   !contains(scripts, s) {
 				scripts = append(scripts, Script{s, d})
 			}
 		}
