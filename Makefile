@@ -109,7 +109,7 @@ install: go-get install-scripts
 	go build -o $(BINDIR)/$(EXEC) -ldflags "-X main.APP_NAME=$(EXEC)" $(SRCS); \
 	RET=$$?; \
 	cd - > /dev/null; \
-	if [ "$$RET" == "0" ]; then \
+	if [ "$$RET" = "0" ]; then \
 		$(MAKE) print-install-success; \
 	fi;
 
