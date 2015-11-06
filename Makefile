@@ -13,6 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+SHELL:=/bin/bash
+
 SRCDIR=$(PWD)/src
 SCRIPTSDIR=$(PWD)/scripts
 THIRDPARTYCLIDIR=$(PWD)/third_party/github.com/codegangsta/cli
@@ -59,14 +61,27 @@ print-install-success:
 pass-checks: check-goenv
 
 check-goenv:
-	@goexec=$$(which go 2>/dev/null); \
+	@min_version="1.5.0"; \
+	version=$$(go version 2>/dev/null); \
+	ret=$${?}; \
 	errstr="This tool is written in Go.\n"; \
-	errstr="$${errstr}Please install Go in order to proceed.\n"; \
-	errstr="$${errstr}https://golang.org/doc/install\n"; \
-	if [ "$${goexec}" = "" ]; then \
-		echo -ne $${errstr}; \
+	errstr="$${errstr}You must be using Go version >= $${min_version}\n"; \
+	errstr="$${errstr}Please install it in order to proceed.\n"; \
+	errstr="$${errstr}https://golang.org/doc/install\n\n"; \
+	if [ "$${ret}" != "0" ]; then \
+		echo -ne "$${errstr}"; \
 		exit 1; \
-	fi;
+	fi; \
+	version=$$(echo $${version} | cut -d' ' -f 3 | cut -c 3-); \
+	compare="$${min_version}"; \
+	while [[ "$${version}" != "0" || "$${compare}" != "0" ]]; do \
+		if [ "$${version%%.*}" -lt "$${compare%%.*}" ]; then \
+			echo -ne "$${errstr}"; \
+			exit 1; \
+		fi; \
+		[[ "$${version}" =~ "." ]] && version="$${version#*.}" || version=0; \
+		[[ "$${compare}" =~ "." ]] && compare="$${compare#*.}" || compare=0; \
+	done
 	@eval $(go env); \
 	errstr="This tool is written in Go.\n"; \
 	errstr="$${errstr}It relies on third party tools installed into an environment variable, called GOPATH.\n"; \

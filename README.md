@@ -37,7 +37,7 @@ repo.
 Installation
 ------------
 
-This installation requires Go. As part of this, Go requires you to set the
+This installation requires Go >= 1.5.0. As part of this, Go requires you to set the
 value of the GOPATH environment variable in order to download and install third
 party packages during go compilation. Your GOPATH should remain set so that
 installed scripts can make use of Go as well. Please add the following to your
